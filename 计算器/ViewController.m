@@ -49,7 +49,7 @@
         self.display.text = digit;
         _isUseInEnterNumbe = YES;
     }
-
+    
 }
 
 //接收传入的运算符
@@ -66,6 +66,46 @@
 }
 
 
+/**
+ *  @author 肖辉良, 16-03-23 15:03:43
+ *
+ *  @brief 百分比计算
+ *
+ *  @param sender <#sender description#>
+ */
+- (IBAction)percent:(UIButton *)sender {
+    if (!self.firstEqual) {  //即没有点击运算符
+        double number = [self.display.text doubleValue]; //获取输入的数字
+        double result = number/100;
+        NSString *strResult = [NSString stringWithFormat:@"%lg",result];
+        self.display.text = strResult;
+        
+    }
+}
+
+
+/**
+ *  @author 肖辉良, 16-03-23 15:03:52
+ *
+ *  @brief 正负操作
+ */
+- (IBAction)negative {
+    NSString *digit =self.display.text;
+    NSString *negative = @"-";
+    BOOL isNegative = [digit hasPrefix:negative];
+    if (isNegative) {
+        NSRange range = NSMakeRange(-1,1);
+        NSString *strPositive = [digit stringByReplacingOccurrencesOfString:negative withString:@""];
+        self.display.text = strPositive;
+    }else{
+        NSString *strNegative = [NSString stringWithFormat:@"-%@",digit];
+        self.display.text = strNegative;
+    }
+    
+}
+
+
+
 
 /**
  *  清零操作
@@ -74,14 +114,16 @@
 {
     self.display.text = @"0";
     
-    _isContinue = NO;
+    _isContinue        = NO;
     _isUseInEnterNumbe = NO;
     [self.operandStack removeAllObjects];  //清空数组
     [self pushNumberInStack:0.0 andBool:NO];
-    self.secondEqual = NO;
-    self.firstEqual = NO;
+    self.secondEqual   = NO;
+    self.firstEqual    = NO;
     
 }
+
+
 
 
 //将输入的操作符赋值给symbol
@@ -90,6 +132,12 @@
     self.symbol = [Operation characterAtIndex:0];
 }
 
+
+/**
+ *  @author 肖辉良, 16-03-23 15:03:46
+ *
+ *  @brief 将输入的数字存入到数组中
+ */
 - (void)numberInBrain
 {
     _isUseInEnterNumbe = NO;
@@ -101,8 +149,8 @@
 
 - (void)pushNumberInStack:(double)aDouble andBool:(BOOL)aBool
 {
-    double number = aDouble;
-    NSNumber *operand = [NSNumber numberWithDouble:number];  //将传入的运算数转化成NSNumber
+    double number     = aDouble;
+    NSNumber *operand = [NSNumber numberWithDouble:number];//将传入的运算数转化成NSNumber
     [self.operandStack addObject:operand];    //将运算数 添加到数组中
     if(!aBool){      //如果 —_secondEqual = NO
         self.secondNumber = [[self.operandStack lastObject] doubleValue];
@@ -117,9 +165,9 @@
     if(self.firstEqual){   //如果点击了运算符  即是 输入两个数字进行计算
         _isContinue = NO;   //将继续计算 改为 NO;
         [self numberInBrain];   //将数字存储到数组中
-        double resultNumber = [self result:_secondEqual];
-        NSMutableString *resultStr = [NSMutableString stringWithFormat:@"%lg",resultNumber];  //将double 转换成string类型
-        if (resultNumber >1000000000) {
+        double resultNumber        = [self result:_secondEqual];
+        NSMutableString *resultStr = [NSMutableString stringWithFormat:@"%lg",resultNumber];//将double 转换成string类型
+        if (resultNumber >100000) {
             //计算它的值是几次方
             int count = 0;
             while (resultNumber >= 10) {
@@ -137,7 +185,7 @@
     }else{
         double resultNumber = [self.display.text doubleValue];
         NSMutableString *resultStr = [NSMutableString stringWithFormat:@"%lg",resultNumber];    //将double 转换成string类型
-        if(resultNumber > 1000000000){
+        if(resultNumber > 100000){
             int count = 0;
             while(resultNumber >=10){
                 resultNumber /=10;
@@ -146,16 +194,16 @@
             [resultStr deleteCharactersInRange:NSMakeRange(0, [resultStr length])];  //清空字符
             [resultStr appendFormat:@"%lg",resultNumber];
             [resultStr appendFormat:@"^%d",count];
-        
+            
         }
         self.display.text = resultStr;
         [resultStr deleteCharactersInRange:NSMakeRange(0, [resultStr length])];  //清空字符
-        self.firstEqual = NO;
-    
+        
+        
     }
-    
-    
-    
+    self.firstEqual = NO;
+    float a = 23;
+    NSLog(@"%f",a/100);
     
 }
 
@@ -168,7 +216,7 @@
             double number2 = [self outANumber];
             double number1 = [self outANumber];
             double result= 0.0;
-            if ([operation isEqualToString:@"+"]) result = number1 + number2;
+            if ([operation isEqualToString:@"+"]) result      = number1 + number2;
             else if ([operation isEqualToString:@"-"]) result = number1 - number2;
             else if ([operation isEqualToString:@"*"]) result = number1 * number2;
             else if ([operation isEqualToString:@"/"]) result = number1 / number2;
@@ -181,15 +229,15 @@
         double number = [self outANumber];
         
         double result= 0.0;
-        if ([operation isEqualToString:@"+"]) result = number + self.secondNumber;
+        if ([operation isEqualToString:@"+"]) result      = number + self.secondNumber;
         else if ([operation isEqualToString:@"-"]) result = number - self.secondNumber;
         else if ([operation isEqualToString:@"*"]) result = number * self.secondNumber;
         else if ([operation isEqualToString:@"/"]) result = number / self.secondNumber;
         
         return result;
-    
+        
     }
-
+    
 }
 
 - (double)outANumber
@@ -199,7 +247,7 @@
         [self.operandStack removeLastObject];  //如果有值 则移除它
     }
     return number;
-
+    
 }
 
 

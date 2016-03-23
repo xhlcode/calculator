@@ -499,6 +499,7 @@
 				2C0DDF211C8D9C0400DAC391 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C0DDF221C8D9C0400DAC391 /* Build configuration list for PBXNativeTarget "计算器Tests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +508,7 @@
 				2C0DDF241C8D9C0400DAC391 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2C0DDF251C8D9C0400DAC391 /* Build configuration list for PBXNativeTarget "计算器UITests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +517,7 @@
 				2C0DDF271C8D9C0400DAC391 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
