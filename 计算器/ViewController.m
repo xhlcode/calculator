@@ -11,7 +11,7 @@
 @interface ViewController ()
 
 @property BOOL isUseInEnterNumbe;   //是否输入完数字
-@property BOOL secondEqual;  //是否 等到结果后继续运算
+@property BOOL secondEqual;  //是否 得到结果后继续运算
 @property BOOL firstEqual;   //是否 输入两个数字进行运算
 @property BOOL isContinue;   //是否继续计算
 @property (strong,nonatomic)NSMutableArray *operandStack;  // 存储数字的数组
